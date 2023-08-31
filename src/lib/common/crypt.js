@@ -33,16 +33,11 @@ export const encrypt = (plaintext, key, counter) => {
 }
 
 export const getEncryptedMask = (password, byteLen) => {
-    if (byteLen % 16 != 0) {
-        console.log("byte length invalid")
-    }
-    let plaintext = new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    let plaintext = new Uint8Array(byteLen)
     let counter = new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     let passwordAffine = password.toAffine()
-    let xHex = bigintToHex(passwordAffine.x, 64)
-    let yHex = bigintToHex(passwordAffine.y, 64)
-    let x = hexToBytes(xHex)
-    let y = hexToBytes(yHex)
+    let x = hexToBytes(bigintToHex(passwordAffine.x, 64))
+    let y = hexToBytes(bigintToHex(passwordAffine.y, 64))
     let xorPassword = xorBytes(x, y, 32)
     let key = hash(xorPassword).slice(0, 16)
     return encrypt(plaintext, key, counter)

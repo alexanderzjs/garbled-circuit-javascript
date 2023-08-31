@@ -26,10 +26,10 @@ const App = () => {
     let m_0 = []
     let m_1 = []
     for (let i = 0; i < numOfOT; i++) {
-        m_0.push(unicodeToBytes("fo150jlafjgrj148"))
-        m_1.push(unicodeToBytes("amvjjafljga8451p"))
+        m_0.push(unicodeToBytes("fo150jlafjgrj148rqrtq"))
+        m_1.push(unicodeToBytes("amvjjafljga8451pqrqte"))
     }
-    let message_len_in_bytes = 16
+    let message_len_in_bytes = m_0[0].length
     let b = [0, 1, 1, 0, 0, 1, 1, 0]
     let a = []
     let A = []

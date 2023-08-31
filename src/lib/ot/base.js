@@ -31,10 +31,10 @@ export const baseGOTSender2 = (numOfOT, message0, message1, eMessage0, eMessage1
     for (let i = 0; i < numOfOT; i++) {
         let aC = multPointScalar(C[i], a[i])
         let mask0 = getEncryptedMask(aC, messageLenInBytes)
-        eMessage0.push(xorBytes(message0[i], mask0, 16))
+        eMessage0.push(xorBytes(message0[i], mask0, messageLenInBytes))
         let aCA = multPointScalar(addPoints(C[i], invPoint(A[i])), a[i])
         let mask1 = getEncryptedMask(aCA, messageLenInBytes)
-        eMessage1.push(xorBytes(message1[i], mask1, 16))
+        eMessage1.push(xorBytes(message1[i], mask1, messageLenInBytes))
     }
     return;
 }
@@ -44,9 +44,9 @@ export const baseGOTReceiver2 = (numOfOT, b, eMessage0, eMessage1, messageb, c, 
         let cA = multPointScalar(A[i], c[i])
         let maskb = getEncryptedMask(cA, messageLenInBytes)
         if (b[i] == 0) {
-            messageb.push(xorBytes(eMessage0[i], maskb, 16))
+            messageb.push(xorBytes(eMessage0[i], maskb, messageLenInBytes))
         } else {
-            messageb.push(xorBytes(eMessage1[i], maskb, 16))
+            messageb.push(xorBytes(eMessage1[i], maskb, messageLenInBytes))
         }
     }
     return;
